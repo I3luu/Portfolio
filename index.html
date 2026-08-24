@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Portfolio</title>
+  <style>
+    body {
+      background-color: #000000;
+      font-family: 'Courier New', monospace;
+      color: #00ff41;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .hero {
+      background-color: #001400;
+      color: #00ff41;
+      padding: 30px 20px;
+      border-radius: 8px;
+      border: 1px solid #00ff41;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      border: 1px solid #00ff41;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,255,65,0.2);
+    }
+
+    button {
+      background-color: #000000;
+      color: #00ff41;
+      border: 1px solid #00ff41;
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #00ff41;
+      color: #000000;
+      cursor: pointer;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #000000;
+      padding: 15px 30px;
+      border-radius: 8px;
+      margin: 20px;
+      border: 1px solid #00ff41;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: #00ff41;
+    }
+
+    .navLinks {
+      display: flex;
+      gap: 25px;
+    }
+
+    .navItem {
+      color: #00ff41;
+      cursor: pointer;
+    }
+
+    .navBadge {
+      border: 1px solid #00ff41;
+      border-radius: 20px;
+      padding: 6px 14px;
+      color: #00ff41;
+    }
+
+    .projectCard {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+    .projectImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+      }
+
+    .projectOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+      }
+
+    .projectContent {
+        position: relative;
+        z-index: 2;
+        padding: 30px 20px;
+        color: white;
+        text-align: center;
+}
+
+    body.party {
+      animation: partyAnim 2s linear infinite;
+}
+
+    @keyframes partyAnim {
+      0%   { background-color: #ff0000; }
+      20%  { background-color: #ff8800; }
+      40%  { background-color: #ffee00; }
+      60%  { background-color: #00ff40; }
+      80%  { background-color: #0099ff; }
+      100% { background-color: #cc00ff; }
+}
+  </style>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    const projects = [
+      { title: "Task list", description: "A simple web-based task list using python and flask", image:"images/ss.jpg" },
+      { title: "Ticket Purchasing App", description: "An App for purchasing tickets", image: "images/ticketss.jpg" }
+    ];
+
+    const navItems = [
+      { icon: "🏠", label: "Home" },
+      { icon: "👤", label: "About" },
+      { icon: "📄", label: "Resume" },
+      { icon: "</>", label: "Projects" }
+    ];
+
+    function Hero(props) {
+      return (
+        <div className="hero">
+          <h1>{props.name}</h1>
+          <p>{props.title}</p>
+        </div>
+      );
+    }
+
+    function Nav() {
+      return (
+        <nav className="navbar">
+          <div className="logo">BRANDON R.</div>
+          <div className="navLinks">
+            {navItems.map((item) => (
+              <span className="navItem" key={item.label}>
+                {item.icon} {item.label}
+              </span>
+            ))}
+          </div>
+         
+        </nav>
+      );
+    }
+
+    function About() {
+      return (
+        <div className="card">
+          <h2>About Me</h2>
+          <p>
+            Hi, my name is Brandon, and I'm currently finishing my degree in Information Technology
+            while working on projects like this one in my free time. I'm most confident with Python,
+            HTML, CSS, and JavaScript, and I have some experience with SQL as well but what I take
+            the most pride in is my adaptability and my love for learning new things.
+          </p>
+        </div>
+      );
+    }
+
+    function ProjectCard(props) {
+  return (
+    <div className="projectCard">
+      <img className="projectImage" src={props.image} />
+      <div className="projectOverlay"></div>
+      <div className="projectContent">
+        <h3>{props.title}</h3>
+        <p>{props.description}</p>
+      </div>
+    </div>
+  );
+}
+
+    function PartyToggle() {
+      
+      const [partyMode, setPartyMode] = React.useState(false)
+
+      React.useEffect(() => {
+        document.body.className = partyMode ? "party" : ""
+      }, [partyMode]);
+      // !partyMode = whatever this does right now, do the opposite
+      return (<button onClick={() => setPartyMode(!partyMode)}> Party Time?? 👀 </button>)
+    }
+
+
+    function App() {
+      return (
+        <>
+          <Nav />
+          <div className="container">
+            <Hero name="Brandon Robinson" title="Software Developer" />
+            <About />
+            <PartyToggle />
+            {
+              projects.map((project) => (
+                <ProjectCard title={project.title} description={project.description} key={project.title} image={project.image}/>
+              ))
+            }
+          </div>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+  </script>
+
+</body>
+</html>
