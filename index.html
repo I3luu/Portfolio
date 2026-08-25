@@ -73,6 +73,7 @@
     .navItem {
       color: #00ff41;
       cursor: pointer;
+      text-decoration: none;
     }
 
     .navBadge {
@@ -147,10 +148,10 @@
     ];
 
     const navItems = [
-      { icon: "🏠", label: "Home" },
-      { icon: "👤", label: "About" },
-      { icon: "📄", label: "Resume" },
-      { icon: "</>", label: "Projects" }
+      { icon: "🏠", label: "Home", href: "#home" },
+      { icon: "👤", label: "About", href: "#about" },
+      { icon: "📄", label: "Resume", href: "resume.pdf", external: true },
+      { icon: "</>", label: "Projects", href: "#projects" }
     ];
 
     function Hero(props) {
@@ -168,9 +169,14 @@
           <div className="logo">BRANDON R.</div>
           <div className="navLinks">
             {navItems.map((item) => (
-              <span className="navItem" key={item.label}>
+              
+                <a className="navItem"
+                href={item.href}
+                target={item.external ? "_blank" : undefined}
+                key={item.label}
+              >
                 {item.icon} {item.label}
-              </span>
+              </a>
             ))}
           </div>
          
@@ -222,14 +228,20 @@
         <>
           <Nav />
           <div className="container">
-            <Hero name="Brandon Robinson" title="Software Developer" />
-            <About />
+            <div id="home">
+              <Hero name="Brandon Robinson" title="Software Developer" />
+            </div>
+            <div id="about">
+              <About />
+            </div>
             <PartyToggle />
-            {
-              projects.map((project) => (
-                <ProjectCard title={project.title} description={project.description} key={project.title} image={project.image}/>
-              ))
-            }
+            <div id="projects">
+              {
+                projects.map((project) => (
+                  <ProjectCard title={project.title} description={project.description} key={project.title} image={project.image}/>
+                ))
+              }
+            </div>
           </div>
         </>
       );
