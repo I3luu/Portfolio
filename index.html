@@ -132,6 +132,25 @@
       80%  { background-color: #0099ff; }
       100% { background-color: #cc00ff; }
 }
+
+    .partyOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 20px;
+      pointer-events: none;
+}
+
+    .partyGif {
+      width: 150px;
+      height: auto;
+}
   </style>
 </head>
 <body>
@@ -224,7 +243,7 @@
         document.body.className = partyMode ? "party" : ""
 
         if (audioRef.current) {
-          audioRef.current.volume = 0.3; // 0 = silent, 1 = full volume
+          audioRef.current.volume = 0.2; // 0 = silent, 1 = full volume
           if (partyMode) {
             audioRef.current.currentTime = 0;
             audioRef.current.play();
@@ -237,6 +256,11 @@
       return (
         <>
           <audio ref={audioRef} src="audio/conga.mp3" loop />
+          {partyMode && (
+            <div className="partyOverlay">
+              <img src="images/run-cat.gif" alt="Party mode" className="partyGif" />
+            </div>
+          )}
           <button onClick={() => setPartyMode(!partyMode)}> Party Time?? 👀 </button>
         </>
       )
