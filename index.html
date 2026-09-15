@@ -143,9 +143,11 @@
   <script type="text/babel">
 
     const projects = [
-      { title: "Task list", description: "A simple web-based task list using python and flask", image:"images/ss.jpg" },
-      { title: "Ticket Purchasing App", description: "An App for purchasing tickets", image: "images/ticketss.jpg" }
-    ];
+  { title: "Task list", description: "A simple web-based task list using python and flask", image:"images/ss.jpg" },
+  { title: "Ticket Purchasing App", description: "A JavaScript ticket checkout app with live price calculation, form validation, and a countdown timer that expires the session if checkout isn't completed in time", image: "images/ticketss.jpg" },
+  { title: "Pokemon Team Builder", description: "A Flask web app that pulls live data from the PokeAPI, letting users search Pokémon, build and save a team of up to six, and compare stats between any two Pokémon head-to-head", image: "images/pokemonss.jpg"},
+  { title: "Groomer Portfolio", description: "A responsive portfolio site built for a professional dog groomer, with an animated photo gallery and lightbox, client testimonials, and a specialties section, using AOS for scroll animations", image: "images/kacey.png"}
+];
 
     const navItems = [
       { icon: "🏠", label: "Home", href: "#home" },
@@ -191,8 +193,8 @@
           <p>
             Hi, my name is Brandon, and I'm currently finishing my degree in Information Technology
             while working on projects like this one in my free time. I'm most confident with Python,
-            HTML, CSS, and JavaScript, and I have some experience with SQL as well but what I take
-            the most pride in is my adaptability and my love for learning new things.
+            HTML, CSS, and JavaScript/React, and I have some experience with SQL as well but what I take
+            the most pride in is my adaptability and my love for learning new things. 
           </p>
         </div>
       );
@@ -224,28 +226,28 @@
 
 
     function App() {
-      return (
-        <>
-          <Nav />
-          <div className="container">
-            <div id="home">
-              <Hero name="Brandon Robinson" title="Software Developer" />
-            </div>
-            <div id="about">
-              <About />
-            </div>
-            <PartyToggle />
-            <div id="projects">
-              {
-                projects.map((project) => (
-                  <ProjectCard title={project.title} description={project.description} key={project.title} image={project.image}/>
-                ))
-              }
-            </div>
-          </div>
-        </>
-      );
-    }
+  return (
+    <>
+      <Nav />
+      <div className="container">
+        <div id="home">
+          <Hero name="Brandon Robinson" title="Software Developer" />
+        </div>
+        <div id="about">
+          <About />
+        </div>
+        <div id="projects">
+          {
+            projects.map((project) => (
+              <ProjectCard title={project.title} description={project.description} key={project.title} image={project.image}/>
+            ))
+          }
+        </div>
+        <PartyToggle />
+      </div>
+    </>
+  );
+}
 
     ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 
