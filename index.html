@@ -88,6 +88,8 @@
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 20px;
+    display: block;
+    text-decoration: none;
   }
 
     .projectImage {
@@ -143,10 +145,10 @@
   <script type="text/babel">
 
     const projects = [
-      { title: "Task list", description: "A simple web-based task list using python and flask", image:"images/ss.jpg" },
-      { title: "Ticket Purchasing App", description: "A JavaScript ticket checkout app with live price calculation, form validation, and a countdown timer that expires the session if checkout isn't completed in time", image: "images/ticketss.jpg" },
-      { title: "Pokemon Team Builder", description: "A Flask web app that pulls live data from the PokeAPI, letting users search Pokémon, build and save a team of up to six, and compare stats between any two Pokémon head-to-head", image: "images/pokemonss.jpg"},
-      { title: "Groomer Portfolio", description: "A responsive portfolio site built for a professional dog groomer, with an animated photo gallery and lightbox, client testimonials, and a specialties section, using AOS for scroll animations", image: "images/kacey.png"}
+      { title: "Task list", description: "A simple web-based task list using python and flask", image:"images/ss.jpg", githubUrl: "https://github.com/I3luu/Task-list" },
+      { title: "Ticket Purchasing App", description: "A JavaScript ticket checkout app with live price calculation, form validation, and a countdown timer that expires the session if checkout isn't completed in time", image: "images/ticketss.jpg", githubUrl: "https://github.com/I3luu/Ticket-Purchasing" },
+      { title: "Pokemon Team Builder", description: "A Flask web app that pulls live data from the PokeAPI, letting users search Pokémon, build and save a team of up to six, and compare stats between any two Pokémon head-to-head", image: "images/pokemonss.jpg", githubUrl: "https://github.com/I3luu/Team_Builder_V2" },
+      { title: "Groomer Portfolio", description: "A responsive portfolio site built for a professional dog groomer, with an animated photo gallery and lightbox, client testimonials, and a specialties section, using AOS for scroll animations", image: "images/kacey.png", githubUrl: "https://github.com/I3luu/Grooming-Portfolio" }
     ];
 
     const navItems = [
@@ -202,43 +204,43 @@
 
     function ProjectCard(props) {
   return (
-    <div className="projectCard">
+    <a className="projectCard" href={props.githubUrl} target="_blank" rel="noopener noreferrer">
       <img className="projectImage" src={props.image} />
       <div className="projectOverlay"></div>
       <div className="projectContent">
         <h3>{props.title}</h3>
         <p>{props.description}</p>
       </div>
-    </div>
+    </a>
   );
 }
 
     function PartyToggle() {
 
-  const [partyMode, setPartyMode] = React.useState(false)
-  const audioRef = React.useRef(null);
+      const [partyMode, setPartyMode] = React.useState(false)
+      const audioRef = React.useRef(null);
 
-  React.useEffect(() => {
-    document.body.className = partyMode ? "party" : ""
+      React.useEffect(() => {
+        document.body.className = partyMode ? "party" : ""
 
-    if (audioRef.current) {
-      audioRef.current.volume = 0.3; // 0 = silent, 1 = full volume
-      if (partyMode) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play();
-      } else {
-        audioRef.current.pause();
-      }
+        if (audioRef.current) {
+          audioRef.current.volume = 0.3; // 0 = silent, 1 = full volume
+          if (partyMode) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+          } else {
+            audioRef.current.pause();
+          }
+        }
+      }, [partyMode]);
+      // !partyMode = whatever this does right now, do the opposite
+      return (
+        <>
+          <audio ref={audioRef} src="audio/conga.mp3" loop />
+          <button onClick={() => setPartyMode(!partyMode)}> Party Time?? 👀 </button>
+        </>
+      )
     }
-  }, [partyMode]);
-  // !partyMode = whatever this does right now, do the opposite
-  return (
-    <>
-      <audio ref={audioRef} src="audio/conga.mp3" loop />
-      <button onClick={() => setPartyMode(!partyMode)}> Party Time?? 👀 </button>
-    </>
-  )
-}
 
 
     function App() {
@@ -255,7 +257,7 @@
             <div id="projects">
               {
                 projects.map((project) => (
-                  <ProjectCard title={project.title} description={project.description} key={project.title} image={project.image}/>
+                  <ProjectCard title={project.title} description={project.description} key={project.title} image={project.image} githubUrl={project.githubUrl}/>
                 ))
               }
             </div>
